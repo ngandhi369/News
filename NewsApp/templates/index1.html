@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .image{
+            height : 300px;
+            width : 550px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <h1>News</h1>
+    {% for category in data %}
+    
+    {% for i in  category.articles%}
+    <b><h2>{{i.title}}</h2></b>
+    {{i.publishedAt}}
+    <br>
+    <img class="image" src='{{i.urlToImage}}' /><br>
+    {{i.description}}
+    <a href="{{i.url}}">Read More</a>
+    <br><br><br>
+    {% endfor %}
+    {% endfor %}
+    <!-- {{data}} --><br><br> 
+    </center>
+</body>
+</html>
