@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+Template Name: Ost Magazine
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  {% load static %}
+<title>News</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="/static/NewsApp/css/layout.css" type="text/css" />
+<script type="text/javascript" src="/static/NewsApp/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/NewsApp/js/jquery.cycle.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('#featured_slide').after('<div id="fsn"><ul id="fs_pagination">').cycle({
+        timeout: 5000,
+        fx: 'fade',
+        pager: '#fs_pagination',
+        pause: 1,
+        pauseOnPagerHover: 0
+    });
+});
+</script>
+</head>
+<body id="top">
+<div class="wrapper col0">
+  <div id="topline">
+    <!-- add a tagline here -->
+    <div id="search">
+      <form action="#" method="post">
+        <fieldset>
+          <legend>Site Search</legend>
+          <input type="text" value="Search Our Website&hellip;"  onfocus="this.value=(this.value=='Search Our Website&hellip;')? '' : this.value ;" />
+          <input type="submit" name="go" id="go" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+    {% if user.is_staff %}
+        <a href="/logout">Logout {{ user.username }}!</a>
+        <a href="/reset_password">Change password</a>
+    {% elif user.is_authenticated %}
+        <a href="{% url 'account'  %}">Profile</a>
+        
+        LOCATION: 
+          {% if request.user.customer.location == 'at' %}
+            Austria
+          {% elif request.user.customer.location == 'be' %}
+            Belgium
+          {% elif request.user.customer.location == 'bg' %}
+            Bulgaria
+          {% elif request.user.customer.location == 'ca' %}
+            Canada
+          {% elif request.user.customer.location == 'in' %}
+            India
+          {% elif request.user.customer.location == 'fn' %}
+            France
+          {% elif request.user.customer.location == 'si' %}
+            Slovenia
+          {% elif request.user.customer.location == 'se' %}
+            Sweden
+          {% elif request.user.customer.location == 'de' %}
+            Germany
+          {% elif request.user.customer.location == 'gr' %}
+            Greece
+          {% elif request.user.customer.location == 'lt' %}
+            Lithuania
+          {% elif request.user.customer.location == 'nl' %}
+            Netherlands
+          {% elif request.user.customer.location == 'au' %}
+            Australia
+          {% elif request.user.customer.location == 'cn' %}
+            China
+          {% elif request.user.customer.location == 'eg' %}
+            Eygypt
+          {% elif request.user.customer.location == 'ru' %}
+            Russia
+          {% elif request.user.customer.location == 'sg' %}
+            Singapore
+          {% elif request.user.customer.location == 'mx' %}
+            Mexico
+          {% endif %}
+      
+        <a href="/logout">Logout {{ user.username }}.</a>
+        <a href="/reset_password">Change password</a>
+    {% else %}
+        <a href="/login">Login</a>
+    {% endif %}
+
+    <br class="clear" />
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+<div class="wrapper col1">
+  <div id="header">
+    <div id="topnav">
+      <ul>
+        <li class="last"><a href="#footer">About Us</a><span>about us</span></li>
+        <li><a href="#">Location</a><span>Select your country</span>
+          <ul>
+            <li><a href="#">India</a></li>
+            <li><a href="#">USA</a></li>
+            <li><a href="#">Canada</a></li>
+            <li><a href="#">Russia</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Language</a><span>Select your Language</span>
+          <ul>
+            <li><a href="#">English</a></li>
+            <li><a href="#">Hindi</a></li>
+            
+          </ul>
+        </li>
+        <!-- <li><a href="pages/full-width.html">Full Width</a><span>Test Text Here</span></li>
+        <li><a href="pages/style-demo.html">Style Demo</a><span>Test Text Here</span></li> -->
+        <li class="active"><a href="#">Home</a><span>Homepage</span></li>
+      </ul>
+    </div>
+    <div id="logo">
+      <h1><a href="#"><strong>N</strong>E<strong>W</strong>S</a></h1>
+      <p>Latest News for Free</p>
+    </div>
+    <br class="clear" />
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+<div class="wrapper col2">
+  <div id="featured_slide">
+    
+        {% for i in top.articles %}
+        {% if i.description != None %}
+        <div style="color: black;" class="featured_box">
+          <!-- <center><h2 style="font-size: large;">{{i.title}}</h2></center> -->
+        <div class="floater">
+        <p style="color: whitesmoke"><b>{{i.title}}:</b>{{i.description}}</p>
+      </div>
+      <p class="readmore"><a href="{{i.url}}">Continue Reading&raquo;</a></p>
+      <img src="{{i.urlToImage}}" alt="" /> 
+    </div>
+      {% endif %}
+      {% endfor %}
+    
+      
+    <!-- <div class="featured_box">
+      <div class="floater">
+        <h2>2. Aliquatjusto quisque nam</h2>
+        <p>Duisvest lacus pellus purus temper maurisus et sodalesuada loreet sapiente et. Quissociis magnisl orci dui nulla ut antesque malesuada sed pede et.</p>
+      </div>
+      <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
+      <img src="{% static 'NewsApp/images/930x375.gif' %}" alt="" /> </div> -->
+    <!-- <div class="featured_box">
+      <div class="floater">
+        <h2>3. Dapiensociis temper donec</h2>
+        <p>Pharetiumurna habitur et enim pellentesque phasellus aliquam nunc quis justo nam. Lobortororci dapibulum ac intesquet ut id sed intesque nec alique.</p>
+      </div>
+      <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
+      <img src="{% static 'NewsApp/images/930x375.gif' %}" alt="" /> </div> -->
+    <!-- <div class="featured_box">
+      <div class="floater">
+        <h2>4. Dapiensociis temper donec</h2>
+        <p>Pharetiumurna habitur et enim pellentesque phasellus aliquam nunc quis justo nam. Lobortororci dapibulum ac intesquet ut id sed intesque nec alique.</p>
+      </div>
+      <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
+      <img src="{% static 'NewsApp/images/930x375.gif' %}" alt="" /> </div> -->
+    <!-- <div class="featured_box">
+      <div class="floater">
+        <h2>5. Nullain convallis ris elis</h2>
+        <p>Nullamcorpervivamus nisl in sed adipit donec feugiat lor vel velit volutpat. Wisihabitur diculisi ac curabitur cursuspendreris sociis sed eger ipsum.</p>
+      </div>
+      <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
+      <img src="{% static 'NewsApp/images/930x375.gif' %}" alt="" /> </div> -->
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+<div class="wrapper col3">
+  <div class="container">
+    <div class="content">
+      <!-- <div id="topstory">
+        <h2>Feugiatrutrum rhoncus semper</h2>
+        <ul>
+          <li><img src="/static/NewsApp/images/190x130.gif" alt="" />
+            <p>Nullamlacus dui ipsum conseqlo borttis non euisque morbipen a sdapibulum orna.</p>
+            <p>Urnau ltrices quis curabitur pha sellent esque congue magnisve stib ulum quismodo nulla et.</p>
+            <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
+          </li> -->
+          <!-- <li><img src="/static/NewsApp/images/190x130.gif" alt="" />
+            <p>Nullamlacus dui ipsum conseqlo borttis non euisque morbipen a sdapibulum orna.</p>
+            <p>Urnau ltrices quis curabitur pha sellent esque congue magnisve stib ulum quismodo nulla et.</p>
+            <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
+          </li>
+          <li class="last"><img src="/static/NewsApp/images/190x130.gif" alt="" />
+            <p>Nullamlacus dui ipsum conseqlo borttis non euisque morbipen a sdapibulum orna.</p>
+            <p>Urnau ltrices quis curabitur pha sellent esque congue magnisve stib ulum quismodo nulla et.</p>
+            <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
+          </li> -->
+        <!-- </ul>
+        <br class="clear" />
+      </div> --> 
+      <div id="latestnews">
+        <h2>Headlines</h2>
+        <ul>
+          {% for i in top.articles %}
+          {% if i.description != None %}
+          <li>
+            <div class="imgholder"><img style="height: 125px; width:125px;" src="{{i.urlToImage}}" alt="" /></div>
+            <div class="latestnews">
+              <h2>{{i.title}}</h2>
+              <p>{{i.description}}</p>
+              <p class="readmore"><a href="{{i.url}}">Continue Reading &raquo;</a></p>
+            </div>
+            <br class="clear" />
+          </li>
+          {% endif %}
+          {% endfor %}
+          <!-- <li class="last">
+            <div class="imgholder"><img src="/static/NewsApp/images/imgl.gif" alt="" /></div>
+            <div class="latestnews">
+              <h2>Indonectetus facilis leo nibh</h2>
+              <p>Attincidunt vel nam a maurisus lacinia consectetus magnisl sed ac morbi. Inmaurisus habitur pretium eu et ac vest penatibus id lacus parturpis. Maecenaset adipiscinia tellentum nullam velit et a convallis curabitae vitae laoreet niseros ligula sem sed susp en at.</p>
+              <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
+            </div>
+            <br class="clear" />
+          </li> -->
+        </ul>
+      </div>
+    </div>
+    <div class="column">
+      <div class="sponsors">
+        <h2>Categories</h2>
+        <div class="b_250"><a href="general"><img style="height: 250px; width:250px;" src="/static/NewsApp/images/general.png" alt="" /></a></div>
+        <div class="b_125">
+          <ul>
+            <li><a href="entertainment"><img style="height: 125px; width:125px;" src="/static/NewsApp/images/entertainment.png" alt="" /></a></li>
+            <li><a href="business"><img style="height: 125px; width:125px;" src="/static/NewsApp/images/business.png" alt="" /></a></li>
+            <li><a href="sports"><img style="height: 125px; width:125px;" src="/static/NewsApp/images/sports.png" alt="" /></a></li>
+            <li><a href="music"><img style="height: 125px; width:125px;" src="/static/NewsApp/images/music.png" alt="" /></a></li>
+            <li><a href="science"><img style="height: 125px; width:125px;" src="/static/NewsApp/images/science.png" alt="" /></a></li>
+            <li><a href="politics"><img style="height: 125px; width:125px;" src="/static/NewsApp/images/politics.png" alt="" /></a></li>
+            <li><a href="health"><img style="height: 125px; width:125px;" src="/static/NewsApp/images/health.png" alt="" /></a></li>
+            <li><a href="technology"><img style="height: 125px; width:125px;" src="/static/NewsApp/images/technology.png" alt="" /></a></li>
+          </ul>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <br class="clear" />
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+<div class="wrapper col4">
+  <div id="footer">
+    <div class="box1">
+      <h2>A Little Company Information !</h2>
+      <img class="imgl" src="/static/NewsApp/images/imgl.gif" alt="" />
+      <p>Morbitincidunt maurisque eros molest nunc anteget sed vel lacus mus semper. Anterdumnullam interdum eros dui urna consequam ac nisl nullam ligula vestassa. Condimentumfelis et amet tellent quisquet a leo lacus nec augue</p>
+      <p>Portortornec condimenterdum eget consectetuer condis.</p>
+    </div>
+    <div class="box contactdetails">
+      <h2>Our Contact Details !</h2>
+      <ul>
+        <li>Company Name</li>
+        <li>Street Name &amp; Number</li>
+        <li>Town</li>
+        <li>Postcode/Zip</li>
+        <li>Tel: xxxxx xxxxxxxxxx</li>
+        <li>Fax: xxxxx xxxxxxxxxx</li>
+        <li>Email: info@domain.com</li>
+        <li class="last">LinkedIn: <a href="#">Company Profile</a></li>
+      </ul>
+    </div>
+    <div class="box flickrbox">
+      <h2>Latest Flickr Images !</h2>
+      <div class="wrap">
+        <div class="fix"></div>
+        <div class="flickr_badge_image" id="flickr_badge_image1"><a href="#"><img src="/static/NewsApp/images/80x80.gif" alt="" /></a></div>
+        <div class="flickr_badge_image" id="flickr_badge_image2"><a href="#"><img src="/static/NewsApp/images/80x80.gif" alt="" /></a></div>
+        <div class="flickr_badge_image" id="flickr_badge_image3"><a href="#"><img src="/static/NewsApp/images/80x80.gif" alt="" /></a></div>
+        <div class="flickr_badge_image" id="flickr_badge_image4"><a href="#"><img src="/static/NewsApp/images/80x80.gif" alt="" /></a></div>
+        <div class="flickr_badge_image" id="flickr_badge_image5"><a href="#"><img src="/static/NewsApp/images/80x80.gif" alt="" /></a></div>
+        <div class="flickr_badge_image" id="flickr_badge_image6"><a href="#"><img src="/static/NewsApp/images/80x80.gif" alt="" /></a></div>
+        <div class="fix"></div>
+      </div>
+    </div>
+    <br class="clear" />
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+<div class="wrapper col5">
+  <div id="copyright">
+    <p class="fl_left">Copyright &copy; 2014 - All Rights Reserved - <a href="#">Domain Name</a></p>
+    <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
+    <br class="clear" />
+  </div>
+</div>
+</body>
+</html>
