@@ -14,11 +14,17 @@ File: Featured Slider CSS
 
 /* ----------------------------------------------Content------------------------------------- */
 
-.featured_box{position:relative; display:block; width:930px; height:375px; margin:15px 0 0 15px;}
+.featured_box{position:relative; display:block; width:930px; height:475px; margin:15px 0 0 15px;}
 .featured_box img{width:930px; height:375px;}
-.featured_box .floater{position:absolute; bottom:30px; width:590px; height:260px; margin:0 0 0 30px; padding:3px 5px; overflow:hidden; background:url("images/fs_txt_trans_bg.png");}
-#featured_slide p.readmore{position:absolute; bottom:30px; right:30px; margin:0 0 25px 0;}
-#featured_slide p.readmore a{color:#FFFF00; background:url("images/fs_txt_trans_bg.png"); padding:25px;}
+.featured_box .floater{
+    position:absolute; bottom:10px; width:550px; 
+    height:100px; margin:0 0 0 10px; padding:3px 5px; overflow:hidden; background:url("images/fs_txt_trans_bg.png");}
+    /* .featured_box .floater{
+    position:absolute; bottom:30px; width:590px; 
+    height:260px; margin:0 0 0 30px; padding:3px 5px; overflow:hidden; background:url("images/fs_txt_trans_bg.png");} */
+#featured_slide p.readmore{position:absolute; bottom:30px; right:30px; margin:0 0 0 0;}
+#featured_slide p.readmore a{color:yellow; background:url("images/fs_txt_trans_bg.png"); padding:20px;}
+#featured_slide p.readmore button{color:yellow; background:url("images/fs_txt_trans_bg.png"); padding:20px;}
 
 /* ----------------------------------------------Navigation Buttons------------------------------------- */
 

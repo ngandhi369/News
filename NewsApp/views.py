@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from django.contrib.auth.models import Group
+from .algorithms.scoring import scoring_algorithm, scoring_nepali
+from .algorithms.frequency import extraction, frequency_nepali, frequency_algorithm
 
 # from django.contrib.auth.decorators import login_required
 
@@ -41,7 +43,7 @@ def registerPage(request):
 		form = CreateUserForm(request.POST)
 		if form.is_valid():
 			user = form.save()
-			username = form.cleaned_data.get('username')
+			username = form.cleaned_data.get('username');email = form.cleaned_data.get('email')
 
 			# this will automatically add new registered person to customer group which we have created using admin panel
 			group = Group.objects.get(name='customer')
@@ -50,6 +52,7 @@ def registerPage(request):
 			Customer.objects.create(
 				user=user,
 				name=user.username,
+                email=user.email,
 			)
 
 			messages.success(request, 'Account was created for ' + username)
@@ -102,20 +105,34 @@ def logoutUser(request):
 
 
 def index(request):
-    if request.user.is_authenticated:
-        data=Customer.objects.all()
-        for i in data:
-            if i.name==str(request.user.username):
-                country=str(i.location)
-                break
-        general=requests.get('https://newsapi.org/v2/top-headlines?country='+country+'&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
-        return render(request,'NewsApp/index.html',{'top':general})
+    # if request.user.is_authenticated:
+    #     data=Customer.objects.all()
+    #     for i in data:
+    #         if i.name==str(request.user.username):
+    #             country=str(i.location)
+    #             break
+    #     general=requests.get('https://newsapi.org/v2/top-headlines?country='+country+'&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+    #     return render(request,'NewsApp/index.html',{'top':general})
+
+    # else:
+    #     general=requests.get('https://newsapi.org/v2/top-headlines?country=in&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+    #     return render(request,'NewsApp/index.html',{'top':general})
+
+    top = requests.get('https://newsapi.org/v2/top-headlines?country=in&apiKey=9289ff62266d4b389cacb6d84f70d28f').json()
+    if request.user.is_staff:
+        return render(request, 'NewsApp/index.html', {'top': top})
+    elif request.user.is_authenticated:
+        customer = request.user.customer
+        form = CustomerForm(instance=customer)
+        return render(request, 'NewsApp/index.html', {'top': top, 'form':form})
     else:
-        general=requests.get('https://newsapi.org/v2/top-headlines?country=in&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
-        return render(request,'NewsApp/index.html',{'top':general})
+        return render(request, 'NewsApp/index.html', {'top': top})
 
 
 def general(request):
+    if request.user.is_staff:
+        general=requests.get('https://newsapi.org/v2/top-headlines?country=in&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+        return render(request,'NewsApp/general.html',{'general':general})
     if request.user.is_authenticated:
         data=Customer.objects.all()
         for i in data:
@@ -130,6 +147,9 @@ def general(request):
 
 
 def music(request):
+    if request.user.is_staff:
+        general=requests.get('https://newsapi.org/v2/top-headlines?country=in&category=music&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+        return render(request,'NewsApp/music.html',{'music':general})
     if request.user.is_authenticated:
         data=Customer.objects.all()
         for i in data:
@@ -143,6 +163,9 @@ def music(request):
         return render(request,'NewsApp/music.html',{'music':general})
 
 def sports(request):
+    if request.user.is_staff:
+        general=requests.get('https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+        return render(request,'NewsApp/sports.html',{'sports':general})
     if request.user.is_authenticated:
         data=Customer.objects.all()
         for i in data:
@@ -157,6 +180,9 @@ def sports(request):
 
 
 def entertainment(request):
+    if request.user.is_staff:
+        general=requests.get('https://newsapi.org/v2/top-headlines?country=in&category=entertainment&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+        return render(request,'NewsApp/entertainment.html',{'entertainment':general})
     if request.user.is_authenticated:
         data=Customer.objects.all()
         for i in data:
@@ -171,6 +197,9 @@ def entertainment(request):
 
 
 def technology(request):
+    if request.user.is_staff:
+        general=requests.get('https://newsapi.org/v2/top-headlines?country=in&category=technology&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+        return render(request,'NewsApp/technology.html',{'technology':general})
     if request.user.is_authenticated:
         data=Customer.objects.all()
         for i in data:
@@ -185,6 +214,9 @@ def technology(request):
 
 
 def science(request):
+    if request.user.is_staff:
+        general=requests.get('https://newsapi.org/v2/top-headlines?country=in&category=science&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+        return render(request,'NewsApp/science.html',{'science':general})
     if request.user.is_authenticated:
         data=Customer.objects.all()
         for i in data:
@@ -199,6 +231,9 @@ def science(request):
 
 
 def politics(request):
+    if request.user.is_staff:
+        general=requests.get('https://newsapi.org/v2/top-headlines?country=in&category=politics&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+        return render(request,'NewsApp/politics.html',{'politics':general})
     if request.user.is_authenticated:
         data=Customer.objects.all()
         for i in data:
@@ -213,6 +248,9 @@ def politics(request):
 
 
 def health(request):
+    if request.user.is_staff:
+        general=requests.get('https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+        return render(request,'NewsApp/health.html',{'health':general})
     if request.user.is_authenticated:
         data=Customer.objects.all()
         for i in data:
@@ -227,6 +265,9 @@ def health(request):
 
 
 def business(request):
+    if request.user.is_staff:
+        general=requests.get('https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
+        return render(request,'NewsApp/business.html',{'business':general})
     if request.user.is_authenticated:
         data=Customer.objects.all()
         for i in data:
@@ -238,3 +279,27 @@ def business(request):
     else:
         general=requests.get('https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=cbabce54cbcf40a29582d22d38332c4e').json()
         return render(request,'NewsApp/business.html',{'business':general})
+
+# def summary(request):
+#     if request.method == 'POST':
+#         return render(request,'NewsApp/summary.html')
+
+def summarize_page(request):
+    url = request.GET.get('url')
+    long_text = request.GET.get('long-text')
+    title=request.GET.get('title')
+    link=request.GET.get('link')
+    result_list = []
+
+    if url:
+        long_text = extraction.extract(url)  # text extraction using BS
+        original_text = url
+    else:
+        original_text = long_text
+
+    # result_list = scoring_algorithm.scoring_main(long_text, 7)
+    result_list = frequency_algorithm.frequency_main(long_text, 7)
+    summary = ' '.join(result_list)
+
+    context = {'data': summary, 'title': title ,'link': link, 'original_text': original_text}
+    return render(request, "NewsApp/summary.html", context)

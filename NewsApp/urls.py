@@ -21,6 +21,7 @@ urlpatterns = [
     path('science', views.science, name='science'),
     path('business', views.business, name='business'),
     path('health', views.health, name='health'),
+    path('summarize_page', views.summarize_page, name='summarize_page'),
 
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="NewsApp/password_reset.html"),
          name="reset_password"),
