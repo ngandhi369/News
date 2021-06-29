@@ -13,3 +13,4 @@ pyparsing==2.4.7
 PyPDF2==1.26.0
 requests==2.25.1
 sqlparse==0.4.1
+whitenoise==5.2.0
