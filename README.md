@@ -2,6 +2,10 @@
 
 ### As a part of Summer Internship, We were assigned to work on this Project. I was selected as a Back-end developer.
 
+
+![Image](https://github.com/ngandhi369/News/blob/master/news3.jpg?raw=true)
+
+
 ## Overview:-
 • Developed web app using NLP & Django to summarizes the articles which are fetched from News API according to users' prefilled country preference.
 • Deployed this model on Heroku platform.
@@ -21,3 +25,4 @@
 
 ## Link To Website:-
 * > ###  WebLink: [news-portal-summarizer.herokuapp.com/](https://news-portal-summarizer.herokuapp.com/)
+
