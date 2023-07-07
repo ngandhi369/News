@@ -27,3 +27,6 @@
 ## Link To Website:-
 * > ###  WebLink: [news-portal-summarizer.herokuapp.com/](https://news-portal-summarizer.herokuapp.com/)
 
+## Certificate:-
+![BISAG_N Summer_Internship](https://github.com/ngandhi369/News/assets/49865067/f2ec9cfc-4aa0-47d5-8cf7-a58b3effd257)
+
